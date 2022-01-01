@@ -1,0 +1,33 @@
+<p>Character Name:</p>
+<input style="width: 50rem" nbInput type="text" fullWidth #charName />
+<p style="margin-top: 10px">Sex:</p>
+<input nbInput fullWidth type="text" #charSex />
+
+<div fullwidth class="form-group">
+  <label for="race">Race:</label><br />
+  <select formControlName="race" #raceName>
+    <option *ngFor="let race of races" [value]="race.raceName">
+      {{ race.raceName }}
+    </option>
+  </select>
+</div>
+
+<div fullwidth class="form-group">
+  <label for="weapon">weapon:</label><br />
+  <select formControlName="weapon" #weaponName>
+    <option *ngFor="let weapon of weapons" [value]="weapon.weaponName">
+      {{ weapon.weaponName }}
+    </option>
+  </select>
+</div>
+
+<p>
+  <button
+    (click)="
+      add(charName.value, charSex.value, raceName.value, weaponName.value)
+    "
+    nbButton
+  >
+    Submit
+  </button>
+</p>
