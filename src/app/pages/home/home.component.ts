@@ -6,7 +6,9 @@ import {
 import { Observable } from '@firebase/util';
 import { NbWindowService } from '@nebular/theme';
 import * as firebase from 'firebase/compat';
+import { Character } from 'src/app/models/character.model';
 import { Race } from 'src/app/models/race.model';
+import { DataService } from 'src/app/services/data.service';
 import { FormComponent } from './components/form/form.component';
 
 @Component({
@@ -16,22 +18,21 @@ import { FormComponent } from './components/form/form.component';
 })
 export class HomeComponent implements OnInit {
   private raceCollection!: AngularFirestoreCollection<Race>;
-  races: Race[] = [];
+  characterCollection!: AngularFirestoreCollection<Character>;
+  characters: Character[] = [];
+  chars: any;
   constructor(
-    public db: AngularFirestore,
+    public dataService: DataService,
     private windowService: NbWindowService
-  ) {
-    db.collection<Race>('races')
-      .get()
-      .toPromise()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          this.races.push(doc.data());
-          console.log(this.races);
-        });
-      });
+  ) {}
+  ngOnInit(): void {
+    this.dataService.getChar().subscribe((character) => {
+      this.characters = character;
+    });
   }
-  ngOnInit(): void {}
+  deleteChar(name: any) {
+    this.dataService.delete(name);
+  }
 
   openForm() {
     this.windowService.open(FormComponent, { title: `Create Character` });

@@ -20,10 +20,10 @@
           <span><h3 style="color: rgb(19, 184, 82)">Sex</h3> </span>
           <span><h3 style="color: rgb(233, 219, 22)">Race</h3></span>
           <span><h3 style="color: rgb(216, 18, 34)">Weapon</h3></span>
-          <span><nb-icon icon="trash"></nb-icon></span>
+          <span></span>
         </div>
       </nb-list-item>
-      <nb-list-item>
+      <nb-list-item style="display: flex; flex-direction: column">
         <div
           style="
             width: 100%;
@@ -33,12 +33,31 @@
             align-self: center;
             margin-top: 5px;
           "
+          *ngFor="let character of characters"
         >
-          <span style="display: flex"><h4>Pảo</h4></span>
-          <span style="color: rgb(19, 184, 82)"><h4>Gei</h4></span>
-          <span style="color: rgb(233, 219, 22)"><h4>Hooman</h4></span>
-          <span style="color: rgb(216, 18, 34)"><h4>Stick</h4></span>
-          <span><nb-icon icon="trash"></nb-icon></span>
+          <span style="display: flex"
+            ><h4>{{ character.name }}</h4></span
+          >
+          <span
+            ><h4 style="color: rgb(19, 184, 82)">{{ character.sex }}</h4></span
+          >
+          <span
+            ><h4 style="color: rgb(233, 219, 22)">
+              {{ character.race }}
+            </h4></span
+          >
+          <span
+            ><h4 style="color: rgb(216, 18, 34)">
+              {{ character.weapon }}
+            </h4></span
+          >
+          <span
+            ><nb-icon
+              (click)="deleteChar(character.name)"
+              style="display: flex; justify-content: center; margin-top: 15%"
+              icon="trash"
+            ></nb-icon
+          ></span>
         </div>
       </nb-list-item>
     </nb-list>

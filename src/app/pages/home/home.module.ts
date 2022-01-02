@@ -16,6 +16,7 @@ import {
   NbWindowModule,
 } from '@nebular/theme';
 import { FormComponent } from './components/form/form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [HomeComponent, FormComponent],
@@ -31,6 +32,8 @@ import { FormComponent } from './components/form/form.component';
     NbInputModule,
     NbSelectModule,
     NbOptionModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
 })
 export class HomeModule {}

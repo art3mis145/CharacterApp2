@@ -9,6 +9,7 @@ import * as firebase from '@angular/fire/compat';
 import { Character } from 'src/app/models/character.model';
 import { Race } from 'src/app/models/race.model';
 import { Weapon } from 'src/app/models/weapon.model';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-form',
@@ -16,56 +17,21 @@ import { Weapon } from 'src/app/models/weapon.model';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit {
+  selectedRace!: any;
+  selectedWeapon!: any;
+  selectedSex!: any;
   races: Race[] = [];
   weapons: Weapon[] = [];
-  private charsCollection!: AngularFirestoreCollection<Character>;
-  characters: Character[] = [];
-  chars: any;
-  constructor(public db: AngularFirestore) {
-    db.collection<Race>('races')
-      .get()
-      .toPromise()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          this.races.push(doc.data());
-          console.log(this.races);
-        });
-      });
-    db.collection<Weapon>('weapons')
-      .get()
-      .toPromise()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          this.weapons.push(doc.data());
-          console.log(this.weapons);
-        });
-      });
-    db.collection<Character>('characters')
-      .get()
-      .toPromise()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          this.characters.push(doc.data());
-          console.log(this.characters);
-        });
-      });
+  constructor(public db: AngularFirestore, public dataService: DataService) {
+    this.races = this.dataService.getRace();
+    this.weapons = this.dataService.getWeapon();
   }
   ngOnInit(): void {}
   add(name: any, sex: any, race: any, weapon: any) {
     if (sex == 'Nam') {
-      this.db.collection('character').add({
-        name: name,
-        sex: true,
-        race: race,
-        weapon: weapon,
-      });
+      this.dataService.addChar(name, sex == true, race, weapon);
     } else if (sex == 'Nữ') {
-      this.db.collection<Character>('characters').valueChanges({
-        name: name,
-        sex: false,
-        race: race,
-        weapon: weapon,
-      });
+      this.dataService.addChar(name, sex == false, race, weapon);
     }
   }
 }

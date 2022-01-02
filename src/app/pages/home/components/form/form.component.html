@@ -1,31 +1,44 @@
 <p>Character Name:</p>
 <input style="width: 50rem" nbInput type="text" fullWidth #charName />
 <p style="margin-top: 10px">Sex:</p>
-<input nbInput fullWidth type="text" #charSex />
+<nb-select fullWidth type="text" [(ngModel)]="selectedSex">
+  <nb-option value="Nam">Nam</nb-option>
+  <nb-option value="Nữ">Nữ</nb-option>
+</nb-select>
 
-<div fullwidth class="form-group">
+<!-- <div fullwidth class="form-group">
   <label for="race">Race:</label><br />
   <select formControlName="race" #raceName>
     <option *ngFor="let race of races" [value]="race.raceName">
       {{ race.raceName }}
     </option>
   </select>
-</div>
+</div> -->
+<p style="margin-top: 10px">Race:</p>
+<nb-select fullWidth [(ngModel)]="selectedRace">
+  <nb-option *ngFor="let race of races" [value]="race.raceName">{{
+    race.raceName
+  }}</nb-option>
+</nb-select>
 
-<div fullwidth class="form-group">
+<!-- <div fullwidth class="form-group">
   <label for="weapon">weapon:</label><br />
   <select formControlName="weapon" #weaponName>
     <option *ngFor="let weapon of weapons" [value]="weapon.weaponName">
       {{ weapon.weaponName }}
     </option>
   </select>
-</div>
+</div> -->
+<p style="margin-top: 10px">Weapon:</p>
+<nb-select fullWidth [(ngModel)]="selectedWeapon">
+  <nb-option *ngFor="let weapon of weapons" [value]="weapon.weaponName">{{
+    weapon.weaponName
+  }}</nb-option>
+</nb-select>
 
 <p>
   <button
-    (click)="
-      add(charName.value, charSex.value, raceName.value, weaponName.value)
-    "
+    (click)="add(charName.value, selectedSex, selectedRace, selectedWeapon)"
     nbButton
   >
     Submit
