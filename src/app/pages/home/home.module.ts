@@ -20,6 +20,8 @@ import { FormComponent } from './components/form/form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DetailComponent } from './components/detail/detail.component';
 import { UpdateComponent } from './components/update/update.component';
+import { RaceDetailComponent } from './components/race-detail/race-detail.component';
+import { WeaponDetailComponent } from './components/weapon-detail/weapon-detail.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { UpdateComponent } from './components/update/update.component';
     FormComponent,
     DetailComponent,
     UpdateComponent,
+    RaceDetailComponent,
+    WeaponDetailComponent,
   ],
   imports: [
     CommonModule,

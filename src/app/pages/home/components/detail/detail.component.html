@@ -31,13 +31,27 @@
             "
           >
             <h5 style="color: rgb(233, 219, 22)">{{ this.detail.race }}</h5>
-          </div></span
+          </div>
+          <button
+            (click)="getRace(this.detail.race)"
+            (click)="openRaceForm()"
+            nbButton
+          >
+            More detail
+          </button></span
         >
         <span>
           <p>Weapon</p>
           <h3 style="color: rgb(216, 18, 34)">
             {{ this.detail.weapon }}
-          </h3></span
+          </h3>
+          <button
+            (click)="getWeapon(this.detail.weapon)"
+            (click)="openWeaponForm()"
+            nbButton
+          >
+            More detail
+          </button></span
         >
         <span> </span>
       </div>

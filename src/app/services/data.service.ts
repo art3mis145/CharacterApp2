@@ -17,21 +17,31 @@ export class DataService {
   races!: Observable<Race[]>;
   weapons!: Observable<Weapon[]>;
   items: Character[] = [];
+  items2: Race[] = [];
+  items3: Weapon[] = [];
   charDetail!: any;
+  raceDetail!: any;
+  weaponDetail!: any;
   chars: Character[] = [];
+
   constructor(public db: AngularFirestore) {
     this.characters = db
       .collection<Character>('character')
       .valueChanges({ idField: 'id' });
-
-    this.races = db.collection<Race>('races').valueChanges({ idField: 'id' });
-    this.weapons = db
-      .collection<Weapon>('weapons')
-      .valueChanges({ idField: 'id' });
-
     this.characters.subscribe((data) => {
       this.items = data;
       console.log(this.characters);
+    });
+    this.races = db.collection<Race>('races').valueChanges({ idField: 'id' });
+    this.races.subscribe((data) => {
+      this.items2 = data;
+    });
+
+    this.weapons = db
+      .collection<Weapon>('weapons')
+      .valueChanges({ idField: 'id' });
+    this.weapons.subscribe((data) => {
+      this.items3 = data;
     });
   }
   getChar() {
@@ -83,5 +93,20 @@ export class DataService {
         });
       });
     return this.chars;
+  }
+
+  searchRace(name: any) {
+    for (let index = 0; index < this.items2.length; index++) {
+      if (this.items2[index].raceName == name) {
+        this.raceDetail = this.items2[index];
+      }
+    }
+  }
+  searchWeapon(name: any) {
+    for (let index = 0; index < this.items3.length; index++) {
+      if (this.items3[index].weaponName == name) {
+        this.weaponDetail = this.items3[index];
+      }
+    }
   }
 }
