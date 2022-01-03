@@ -10,6 +10,11 @@ import { Character } from 'src/app/models/character.model';
 import { Race } from 'src/app/models/race.model';
 import { DataService } from 'src/app/services/data.service';
 import { FormComponent } from './components/form/form.component';
+import { map } from 'rxjs/operators';
+import { DetailComponent } from './components/detail/detail.component';
+import { UpdateComponent } from './components/update/update.component';
+import { FormControl } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -17,24 +22,47 @@ import { FormComponent } from './components/form/form.component';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  private raceCollection!: AngularFirestoreCollection<Race>;
-  characterCollection!: AngularFirestoreCollection<Character>;
   characters: Character[] = [];
-  chars: any;
+  chars!: any;
+  inputCharsControl!: FormControl;
+
   constructor(
+    public db: AngularFirestore,
     public dataService: DataService,
-    private windowService: NbWindowService
+    private windowService: NbWindowService,
+    public auth: AuthService
   ) {}
   ngOnInit(): void {
-    this.dataService.getChar().subscribe((character) => {
-      this.characters = character;
+    this.dataService.getChar().subscribe((data) => {
+      this.characters = data;
     });
   }
-  deleteChar(name: any) {
-    this.dataService.delete(name);
+  deleteChar(id: any) {
+    this.dataService.delete(id);
   }
-
+  getDetail(id: any) {
+    this.dataService.getCharDetail(id);
+  }
+  searchChar() {
+    let keyword = (<HTMLInputElement>document.getElementById('keyword')).value;
+    if (keyword.trim()) {
+      this.characters = this.dataService.search(keyword.trim());
+    } else {
+      this.dataService.getChar().subscribe((data) => {
+        this.characters = data;
+      });
+    }
+  }
   openForm() {
     this.windowService.open(FormComponent, { title: `Create Character` });
+  }
+  openDetailForm() {
+    this.windowService.open(DetailComponent, { title: `Character Detail` });
+  }
+  openUpdateForm() {
+    this.windowService.open(UpdateComponent, { title: 'Update Character' });
+  }
+  onLogout() {
+    this.auth.logout();
   }
 }

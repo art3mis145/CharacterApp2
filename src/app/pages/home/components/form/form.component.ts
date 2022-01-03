@@ -22,11 +22,17 @@ export class FormComponent implements OnInit {
   selectedSex!: any;
   races: Race[] = [];
   weapons: Weapon[] = [];
-  constructor(public db: AngularFirestore, public dataService: DataService) {
-    this.races = this.dataService.getRace();
-    this.weapons = this.dataService.getWeapon();
+  constructor(public db: AngularFirestore, public dataService: DataService) {}
+  ngOnInit(): void {
+    this.dataService.getRace().subscribe((race) => {
+      this.races = race;
+      console.log(this.races);
+    });
+    this.dataService.getWeapon().subscribe((weapon) => {
+      this.weapons = weapon;
+      console.log(this.weapons);
+    });
   }
-  ngOnInit(): void {}
   add(name: any, sex: any, race: any, weapon: any) {
     if (sex == 'Nam') {
       this.dataService.addChar(name, sex == true, race, weapon);

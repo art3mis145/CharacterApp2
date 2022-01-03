@@ -1,62 +1,76 @@
-
 <div class="body">
-    <div class="container"> 
-        <div class="title" href="#" [routerLink]="['']">Login</div>
+  <div class="container">
+    <div class="title">Login</div>
 
-        <form >
-            <!-- (ngSubmit)="loginByEmail()" -->
+    <form class="form" [formGroup]="loginForm">
+      <!-- (ngSubmit)="loginByEmail()" -->
 
-            <div class="data">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control"  placeholder="Enter email" required>
-                <!-- [(ngModel)]="email" -->
-            </div>
+      <div class="data">
+        <label>Email</label>
+        <input
+          type="email"
+          name="email"
+          class="form-control"
+          formControlName="email"
+          placeholder="Enter email"
+          required
+        />
+        <!-- [(ngModel)]="email" -->
+      </div>
 
-            <div class="data">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control"  placeholder="Enter Password" required>
-                <!-- [(ngModel)]="password" -->
-            </div>
+      <div class="data">
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          class="form-control"
+          formControlName="password"
+          placeholder="Enter Password"
+          required
+        />
+        <!-- [(ngModel)]="password" -->
+      </div>
 
-            <div class="forgot-pass">
-                <a class="text-danger" >Forgot Password?</a>
-                <!-- *ngIf="!resetPassword && isValidMailFormat(email)" (click)="sendResetEmail()" -->
-                <p  class="text-success">Check your email to reset password!</p>
-                <!-- *ngIf="resetPassword" -->
-            </div>
+      <div class="forgot-pass">
+        <a class="text-danger">Forgot Password?</a>
+        <!-- *ngIf="!resetPassword && isValidMailFormat(email)" (click)="sendResetEmail()" -->
+        <p class="text-success">Check your email to reset password!</p>
+        <!-- *ngIf="resetPassword" -->
+      </div>
 
-            <div>
-                <div class="register">  Not a member? <a routerLink="/register">Register here</a></div>
-             </div>
+      <div>
+        <div class="register">
+          Not a member? <a routerLink="/register">Register here</a>
+        </div>
+      </div>
 
-            <div class="form-group">
-                <p style="color: red;"> </p>
-                    <!-- *ngIf="errorMessage.length > 0"  {{errorMessage}} -->
+      <div class="form-group">
+        <p style="color: red"></p>
+        <!-- *ngIf="errorMessage.length > 0"  {{errorMessage}} -->
 
-                <p style="color: red;"> </p>
-                    <!-- *ngIf="error.message.length > 0"  {{error.message}} -->
-            </div>
-            
-            <div class="btn">
-                <div class="inner">
-                </div>
-                <button type="submit">Login</button>
-            </div>
+        <p style="color: red"></p>
+        <!-- *ngIf="error.message.length > 0"  {{error.message}} -->
+      </div>
 
-            <div class="or">
-                <a> OR </a>
-            </div>
+      <div class="btn">
+        <div class="inner"></div>
+        <button (click)="onLogin()" type="submit">Login</button>
+      </div>
 
-            <div class="google-btn">
-                <div class="google-icon-wrapper">
-                    <img class="google-icon"
-                        src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
-                </div>
-                <a class="btn-text">Login with Google</a>
-                <!-- (click)="login()" -->
-            </div>
+      <div class="or">
+        <a> OR </a>
+      </div>
 
-        </form>
-        
-    </div>
+      <div class="google-btn">
+        <div class="google-icon-wrapper">
+          <img
+            class="google-icon"
+            src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+          />
+        </div>
+        <a (click)="onLoginViaGG()" class="btn-text">Login with Google</a>
+        <!-- (click)="login()" -->
+      </div>
+    </form>
+  </div>
 </div>

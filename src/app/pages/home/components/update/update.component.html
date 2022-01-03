@@ -1,0 +1,41 @@
+<p>Character Name:</p>
+<input
+  nbInput
+  fullWidth
+  type="text"
+  placeholder="Enter character name"
+  [(ngModel)]="this.detail.name"
+  #name
+/>
+<p>Sex:</p>
+<nb-select fullWidth type="text" [(ngModel)]="updateSex">
+  <nb-option value="Nam">Nam</nb-option>
+  <nb-option value="Nữ">Nữ</nb-option>
+</nb-select>
+<p>Race:</p>
+<!-- <input
+  nbInput
+  fullWidth
+  type="text"
+  placeholder="Enter character name"
+  [(ngModel)]="this.detail.race"
+/> -->
+<nb-select [(ngModel)]="updateRace" fullWidth>
+  <nb-option *ngFor="let race of this.races" [value]="race.raceName">{{
+    race.raceName
+  }}</nb-option>
+</nb-select>
+<p>Weapon:</p>
+<nb-select [(ngModel)]="updateWeapon" fullWidth>
+  <nb-option *ngFor="let weapon of this.weapons" [value]="weapon.weaponName">{{
+    weapon.weaponName
+  }}</nb-option>
+</nb-select>
+<button
+  (click)="
+    updateChar(this.detail.id, name.value, updateSex, updateRace, updateWeapon)
+  "
+  nbButton
+>
+  Submit
+</button>

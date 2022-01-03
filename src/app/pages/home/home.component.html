@@ -1,8 +1,14 @@
+<button (click)="onLogout()" nbButton>Logout</button>
 <nb-layout>
   <nb-layout-header style="display: flex; justify-content: center"
     ><h1>Bảng Character</h1></nb-layout-header
   >
   <nb-layout-column>
+    <div>
+      <input id="keyword" nbInput type="text" fullWidth />
+      <button (click)="searchChar()" nbButton>Search</button>
+    </div>
+
     <nb-list fullWidth>
       <nb-list-item>
         <div
@@ -53,9 +59,21 @@
           >
           <span
             ><nb-icon
-              (click)="deleteChar(character.name)"
+              (click)="getDetail(character.id)"
+              (click)="openDetailForm()"
               style="display: flex; justify-content: center; margin-top: 15%"
-              icon="trash"
+              icon="heart-outline"
+            ></nb-icon>
+            <nb-icon
+              (click)="deleteChar(character.id)"
+              style="display: flex; justify-content: center; margin-top: 15%"
+              icon="trash-2-outline"
+            ></nb-icon>
+            <nb-icon
+              (click)="getDetail(character.id)"
+              (click)="openUpdateForm()"
+              style="display: flex; justify-content: center; margin-top: 15%"
+              icon="edit-outline"
             ></nb-icon
           ></span>
         </div>
