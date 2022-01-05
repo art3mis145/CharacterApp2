@@ -1,6 +1,7 @@
 export interface Race {
-  id: String;
+  id: string;
   raceName: String;
   cityName: String;
   stat: String;
+  charsId: Array<string>;
 }

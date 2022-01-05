@@ -4,7 +4,9 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
+import * as firebase from 'firebase/compat/app';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Character } from '../models/character.model';
 import { Race } from '../models/race.model';
 import { Weapon } from '../models/weapon.model';
@@ -23,6 +25,8 @@ export class DataService {
   raceDetail!: any;
   weaponDetail!: any;
   chars: Character[] = [];
+  count: Character[] = [];
+  charID!: String[];
 
   constructor(public db: AngularFirestore) {
     this.characters = db
@@ -59,6 +63,25 @@ export class DataService {
         this.charDetail = this.items[index];
       }
     }
+  }
+
+  raceNum() {
+    this.db
+      .collection<Character>('character', (ref) =>
+        ref.where('race', '==', 'Mage')
+      )
+      .get()
+      .toPromise()
+      .then((query) => {
+        query.forEach((doc) => {
+          this.count.push(doc.data());
+        });
+      });
+    let mageRace = 0;
+    for (let index = 0; index < this.count.length; index++) {
+      mageRace++;
+    }
+    return mageRace;
   }
 
   addChar(name: any, sex: any, race: any, weapon: any) {
@@ -108,5 +131,25 @@ export class DataService {
         this.weaponDetail = this.items3[index];
       }
     }
+  }
+  updateRaceWithCharId(name: any) {
+    for (let index = 0; index < this.items.length; index++) {
+      if (this.items[index].name == name) {
+        this.charID.push(this.items[index].name);
+      }
+      console.log(this.charID);
+    }
+
+    // for (let index = 0; index < this.items2.length; index++) {
+    //   if (this.items2[index].raceName == name)
+    //     this.db
+    //       .collection('races')
+    //       .doc(this.items2[index].id)
+    //       .update({
+    //         charsId: firebase.default.firestore.FieldValue.arrayUnion(
+    //           this.charID
+    //         ),
+    //       });
+    // }
   }
 }

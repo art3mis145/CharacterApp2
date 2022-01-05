@@ -1,0 +1,57 @@
+<button (click)="onLogout()" nbButton>Logout</button>
+<button [routerLink]="['/home']" nbButton>Character</button>
+<nb-layout>
+  <nb-layout-header style="display: flex; justify-content: center"
+    ><h1>Bảng Race</h1></nb-layout-header
+  >
+  <nb-layout-column>
+    <nb-list fullWidth>
+      <nb-list-item>
+        <div
+          style="
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            border-bottom: solid;
+            align-self: center;
+          "
+        >
+          <span style="display: flex"><h3>Race Name</h3></span>
+
+          <span><h3 style="color: rgb(19, 184, 82)">City</h3> </span>
+          <span><h3 style="color: rgb(233, 219, 22)">Stat</h3></span>
+          <span><h3 style="color: rgb(216, 18, 34)">Number of player</h3></span>
+          <span></span>
+        </div>
+      </nb-list-item>
+      <nb-list-item style="display: flex; flex-direction: column">
+        <div
+          style="
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            align-self: center;
+          "
+          *ngFor="let race of races"
+        >
+          <span style="display: flex"
+            ><h3>{{ race.raceName }}</h3></span
+          >
+
+          <span
+            ><h3 style="color: rgb(19, 184, 82)">{{ race.cityName }}</h3>
+          </span>
+          <span
+            ><h3 style="color: rgb(233, 219, 22)">{{ race.stat }}</h3></span
+          >
+          <span><h3 style="color: rgb(216, 18, 34)"></h3></span>
+          <span></span>
+        </div>
+      </nb-list-item>
+    </nb-list>
+  </nb-layout-column>
+  <nb-layout-footer> </nb-layout-footer>
+</nb-layout>

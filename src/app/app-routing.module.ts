@@ -25,6 +25,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/home/home.module').then((m) => m.HomeModule),
   },
+  { path: 'race-table', loadChildren: () => import('./pages/race-table/race-table.module').then(m => m.RaceTableModule) },
 ];
 
 @NgModule({
